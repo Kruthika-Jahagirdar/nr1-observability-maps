@@ -27,12 +27,14 @@ export default class ManageIcons extends React.PureComponent {
     this.writeIconSet = this.writeIconSet.bind(this);
     this.handleIconSetChange = this.handleIconSetChange.bind(this);
   }
+//use effect
+
 
   writeIconSet(dataFetcher, storageLocation) {
     //use condition to save icon settings to User/Account type respectively.
     const { name, green, orange, red, selected } = this.state;
     const documentId = selected === 'new' || name !== '' ? name : selected;
-    console.log(storageLocation);
+    console.log(dataFetcher, "data",storageLocation);
     // writeUserDocument(iconCollection, documentId, { green, orange, red }); // commented to test storage of settings
 
     if (storageLocation.type === 'user') {
@@ -44,7 +46,7 @@ export default class ManageIcons extends React.PureComponent {
       );
     }
     dataFetcher(['userIcons']);
-    this.handleIconSetChange(null);
+   // this.handleIconSetChange(null);
   }
 
   deleteIconSet(selected, dataFetcher) {
@@ -80,7 +82,7 @@ export default class ManageIcons extends React.PureComponent {
 
   render() {
     const { selected, name, green, orange, red } = this.state;
-
+console.log(this.state.selected,"selected");
     return (
       <DataConsumer>
         {({ userIcons, updateDataContextState, dataFetcher, storageLocation }) => {

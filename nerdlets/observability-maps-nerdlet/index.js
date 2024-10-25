@@ -11,6 +11,7 @@ import { DataProvider } from './context/data';
 export default class ObservabilityMapsCore extends React.Component {
   render() {
     const { isWidget, vizConfig } = this.props;
+   
     return (
       <AutoSizer>
         {({ width, height }) => (

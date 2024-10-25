@@ -83,7 +83,7 @@ console.log(storageLocation);
         mapConfig
       );
     }
-
+console.log(mapConfig, "map conf");
     await dataFetcher(['userMaps', 'accountMaps']);
   };
 
@@ -139,7 +139,7 @@ console.log(storageLocation);
           const value = name =>
             (this.state[name] != null ? this.state[name] : tempState[name]) ||
             '';
-
+            console.log(this.state,"init value");
           return (
             <Modal
               closeIcon

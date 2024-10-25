@@ -24,8 +24,8 @@ export default class ObservabilityMaps extends React.Component {
     const { sidebarOpen } = this.state;
     const { isWidget, vizConfig } = this.props;
     const graphWidth = sidebarOpen
-      ? (this.props.width / 4) * 3
-      : this.props.width;
+      ? (this.props.width / 4) * 4
+      : '100%';
     const nodeSize = 700; // increasing this will not adjust the icon sizing, it will increase the svg area
 
     // the graph configuration, you only need to pass down properties
@@ -43,8 +43,8 @@ export default class ObservabilityMaps extends React.Component {
         color: 'lightgreen',
         size: nodeSize,
         highlightStrokeColor: 'blue',
-        fontSize: 10,
-        highlightFontSize: 10,
+        fontSize: 14,
+        highlightFontSize: 14,
         labelProperty: node => cleanNodeId(node.customLabel || node.id),
         fontColor: 'white',
         viewGenerator: node => <NodeHandler node={node} nodeSize={nodeSize} />
@@ -59,7 +59,7 @@ export default class ObservabilityMaps extends React.Component {
         fontWeight: 'bold'
       },
       directed: true,
-      height: this.props.height - 80,
+      height: this.props.height - 60,
       width: graphWidth
     };
 
@@ -112,7 +112,7 @@ export default class ObservabilityMaps extends React.Component {
           }
 
           const mainGridStyle = {
-            height: this.props.height - 40,
+            height: this.props.height - 44,
             backgroundColor: 'black',
             marginTop: '0px'
           };
@@ -138,7 +138,7 @@ export default class ObservabilityMaps extends React.Component {
 
               <Grid columns={16} style={mainGridStyle}>
                 <Grid.Row style={{ paddingTop: '0px' }}>
-                  <Grid.Column width={12}>
+                  <Grid.Column width={14}>
                     <Map d3MapConfig={d3MapConfig} graphWidth={graphWidth} />
                   </Grid.Column>
                 </Grid.Row>

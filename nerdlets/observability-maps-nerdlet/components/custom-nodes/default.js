@@ -50,8 +50,8 @@ export default class CustomNode extends React.PureComponent {
               className="om-icon icon"
               style={{
                 zIndex: 999999,
-                height: '25px',
-                width: '25px',
+                height: '35px',
+                width: '35px',
                 borderRadius: '50%'
               }}
               src={iconSrc}
@@ -92,7 +92,7 @@ export default class CustomNode extends React.PureComponent {
             trigger={
               <Icon
                 loading
-                size="large"
+                size="big"
                 className={`spin-speed-${iconSpinSpeed}`}
                 color={colorTwo}
                 name={iconOuter}
@@ -109,7 +109,7 @@ export default class CustomNode extends React.PureComponent {
           <Icon
             className={`spin-speed-${iconSpinSpeed}`}
             loading
-            size="large"
+            size="big"
             color={colorTwo}
             name={iconOuter}
           />
