@@ -347,7 +347,7 @@ export class DataProvider extends Component {
                   const mapConfig = JSON.parse(
                     JSON.stringify(stateData.mapConfig)
                   );
-                  console.log('savingMap', mapConfig);
+
                   if (storageLocation.type === 'user') {
                     await writeUserDocument(
                       'ObservabilityMaps',
@@ -402,7 +402,7 @@ export class DataProvider extends Component {
 
   // fetch data as required, supply array things to fetch
   dataFetcher = async actions => {
-    console.log('context dataFetcher');
+
     return new Promise(async resolve => {
       const dataPromises = [];
       const content = [];
@@ -416,12 +416,16 @@ export class DataProvider extends Component {
             break;
           case 'userIcons':
             content.push(action);
-            console.log(storageLocation,"loc");
-            console.log(getAccountCollection(storageLocation.value,iconCollection),'icons');
-            //dataPromises.push(getUserCollection(iconCollection));
-            dataPromises.push(
-              getAccountCollection(storageLocation.value, iconCollection)
-            );
+            console.log(action, "icon action");
+            if (storageLocation.type === 'user') {
+              console.log("user coll", iconCollection);
+              dataPromises.push(getUserCollection(iconCollection));
+            } else if (storageLocation.type === 'account') {
+              console.log("account coll", iconCollection);
+              dataPromises.push(
+                getAccountCollection(storageLocation.value, iconCollection)
+              );
+            }
             break;
           case 'accountMaps':
             content.push(action);
@@ -442,10 +446,11 @@ export class DataProvider extends Component {
       });
 
       await Promise.all(dataPromises).then(async values => {
+        console.log(values,"value in data fetcher");
         const { storageLocation } = this.state;
         const data = {};
         data.availableMaps = [];
-        data.iconSet=[];
+        data.userIcons = [];
         values.forEach((value, i) => {
           switch (content[i]) {
             case 'userMaps':
@@ -464,14 +469,13 @@ export class DataProvider extends Component {
               data.availableMaps = [...data.availableMaps, ...data[content[i]]];
               break;
             case 'userIcons':
-              console.log(value,"icons value");
               data[content[i]] = value.map(v => ({
                 ...v,
                 type: 'account',
                 storageLocation
               }));
-              console.log(data[content[i]],"data content");
-              data.iconSet = [...data.iconSet, ...data[content[i]]];
+              console.log(data, "data from promise");
+              data.userIcons = [...data.userIcons, ...data[content[i]]];
               break;
             case 'userConfig':
               data.userConfig = value || null;

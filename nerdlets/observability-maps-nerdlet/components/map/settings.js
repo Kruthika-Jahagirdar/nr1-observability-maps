@@ -143,7 +143,7 @@ console.log(mapConfig, "map conf");
           return (
             <Modal
               closeIcon
-              size="large"
+              size="big"
               open={settingsOpen}
               onClose={this.handleClose}
               onUnmount={() => this.onUnmount(updateDataContextState)}

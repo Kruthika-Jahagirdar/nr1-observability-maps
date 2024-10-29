@@ -126,7 +126,7 @@ export default class ImportMap extends React.PureComponent {
           return (
             <Modal
               closeIcon
-              size="large"
+              size="big"
               open={importOpen}
               onClose={this.handleClose}
               onUnmount={() => updateDataContextState({ closeCharts: false })}

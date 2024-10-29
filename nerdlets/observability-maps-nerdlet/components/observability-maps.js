@@ -24,9 +24,9 @@ export default class ObservabilityMaps extends React.Component {
     const { sidebarOpen } = this.state;
     const { isWidget, vizConfig } = this.props;
     const graphWidth = sidebarOpen
-      ? (this.props.width / 4) * 4
-      : '100%';
-    const nodeSize = 700; // increasing this will not adjust the icon sizing, it will increase the svg area
+      ? (this.props.width / 4) * 6
+      : this.props.width;
+    const nodeSize = 600; // increasing this will not adjust the icon sizing, it will increase the svg area
 
     // the graph configuration, you only need to pass down properties
     // that you want to override, otherwise default ones will be used
@@ -76,7 +76,7 @@ export default class ObservabilityMaps extends React.Component {
           const errors = [];
 
           d3MapConfig.link.type =
-            mapConfig?.settings?.linkType || 'CURVE_SMOOTH';
+            mapConfig?.settings?.linkType || 'STRAIGHT';
 
           d3MapConfig.staticGraph =
             (mapConfig?.settings?.staticGraph || false) === 'true';
@@ -138,7 +138,7 @@ export default class ObservabilityMaps extends React.Component {
 
               <Grid columns={16} style={mainGridStyle}>
                 <Grid.Row style={{ paddingTop: '0px' }}>
-                  <Grid.Column width={14}>
+                  <Grid.Column width={16}>
                     <Map d3MapConfig={d3MapConfig} graphWidth={graphWidth} />
                   </Grid.Column>
                 </Grid.Row>

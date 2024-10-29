@@ -19,6 +19,7 @@ export default class IconSet extends React.PureComponent {
     return (
       <DataConsumer>
         {({ userIcons, mapConfig, selectedNode, updateDataContextState }) => {
+          console.log(userIcons,"icon set in edit node");
           const userIconSelection = userIcons.map(set => ({
             key: set.id,
             value: set.id,

@@ -29,7 +29,7 @@ import { buildContextOptions, rightClick } from './map-utils';
 
 // do not allow negative coordinates
 const safeCoordinate = coordinate =>
-  coordinate <= 0 ? Math.floor(Math.random() * 150) + 1 : coordinate;
+  coordinate <= 0 ? Math.floor(Math.random() * 100) + 1 : coordinate;
 
 export default class Map extends React.PureComponent {
   constructor(props) {
@@ -193,8 +193,8 @@ console.log(d3MapConfig,"map config");
                     backgroundColor: 'white',
                     position: 'absolute',
                     zIndex: 9999,
-                    top: menuY + 16,
-                    left: menuX + 16
+                    top: menuY + 14,
+                    left: menuX + 14
                   }}
                 >
                   <Menu vertical inverted style={{ borderRadius: '0px' }}>

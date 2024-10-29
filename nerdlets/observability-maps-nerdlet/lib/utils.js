@@ -31,6 +31,7 @@ export const getAccountCollection = async (
   collection,
   documentId
 ) => {
+  console.log(accountId, collection, documentId, "from icons");
   const payload = { accountId, collection };
   if (documentId) payload.documentId = documentId;
   const result = await AccountStorageQuery.query(payload);
@@ -45,6 +46,7 @@ export const writeUserDocument = async (collection, documentId, payload) => {
     documentId: documentId.replaceAll(' ', '-'),
     document: payload
   });
+  console.log("user result", result);
   return result;
 };
 
@@ -61,6 +63,7 @@ export const writeAccountDocument = async (
     documentId: documentId.replaceAll(' ', '-'),
     document: payload
   });
+  console.log("acc result", result);
   return result;
 };
 

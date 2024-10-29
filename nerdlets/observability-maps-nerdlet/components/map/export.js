@@ -18,9 +18,10 @@ export default class ExportMap extends React.PureComponent {
     return (
       <DataConsumer>
         {({ updateDataContextState, mapConfig, selectedMap }) => (
+         
           <Modal
             closeIcon
-            size="large"
+            size="big"
             open={exportOpen}
             onClose={this.handleClose}
             onUnmount={() => updateDataContextState({ closeCharts: false })}
@@ -44,7 +45,7 @@ export default class ExportMap extends React.PureComponent {
               <textarea
                 readOnly
                 name="exportMapConfig"
-                style={{ width: '100%', height: '500px' }}
+                style={{ width: '100%', height: '265px',fontSize:'1vw' }}
                 value={JSON.stringify(mapConfig, null, 2)}
               />
             </Modal.Content>
