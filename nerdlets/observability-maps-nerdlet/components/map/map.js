@@ -160,10 +160,10 @@ export default class Map extends React.PureComponent {
       document.getElementsByTagName('marker')[i].setAttribute('refX', '25');
       document
         .getElementsByTagName('marker')
-        [i].setAttribute('markerWidth', '12');
+        [i].setAttribute('markerWidth', '2');
       document
         .getElementsByTagName('marker')
-        [i].setAttribute('markerHeight', '12');
+        [i].setAttribute('markerHeight', '2');
     }
 console.log(d3MapConfig,"map config");
     return (

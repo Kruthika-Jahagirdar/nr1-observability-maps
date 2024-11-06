@@ -26,7 +26,7 @@ export default class ObservabilityMaps extends React.Component {
     const graphWidth = sidebarOpen
       ? (this.props.width / 4) * 6
       : this.props.width;
-    const nodeSize = 600; // increasing this will not adjust the icon sizing, it will increase the svg area
+    const nodeSize = 800; // increasing this will not adjust the icon sizing, it will increase the svg area
 
     // the graph configuration, you only need to pass down properties
     // that you want to override, otherwise default ones will be used
@@ -43,8 +43,10 @@ export default class ObservabilityMaps extends React.Component {
         color: 'lightgreen',
         size: nodeSize,
         highlightStrokeColor: 'blue',
-        fontSize: 14,
+        fontSize: 16,
+        fontWeight:'bold',
         highlightFontSize: 14,
+        labelPosition:'bottom',
         labelProperty: node => cleanNodeId(node.customLabel || node.id),
         fontColor: 'white',
         viewGenerator: node => <NodeHandler node={node} nodeSize={nodeSize} />
@@ -56,7 +58,8 @@ export default class ObservabilityMaps extends React.Component {
         labelProperty: link => <LinkHandler link={link} />,
         fontColor: '#21ba45',
         fontSize: 11,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        markerHeight:2
       },
       directed: true,
       height: this.props.height - 60,

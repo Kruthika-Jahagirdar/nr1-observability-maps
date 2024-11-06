@@ -1,6 +1,13 @@
 import React from 'react';
 import { Modal, Button, Form, Label } from 'semantic-ui-react';
-import { writeUserDocument, deleteUserDocument, writeAccountDocument, getAccountCollection, getUserCollection } from '../../lib/utils';
+import {
+  writeUserDocument,
+  deleteUserDocument,
+  deleteAccountDocument,
+  writeAccountDocument,
+  getAccountCollection,
+  getUserCollection
+} from '../../lib/utils';
 import { DataConsumer } from '../../context/data';
 
 const iconCollection = 'ObservabilityIcons';
@@ -23,7 +30,8 @@ export default class ManageIcons extends React.PureComponent {
       green: '',
       orange: '',
       red: '',
-      iconSet: []
+      iconSet: [],
+      location: ''
     };
     this.writeIconSet = this.writeIconSet.bind(this);
     this.handleIconSetChange = this.handleIconSetChange.bind(this);
@@ -31,7 +39,16 @@ export default class ManageIcons extends React.PureComponent {
   }
   //use effect
 
+  componentDidMount() {
+    setTimeout(() => {
+      this.getIconSet(this.state.location);
+      console.log(this.state.location, "location")
+    }, 3000);
+  }
 
+  componentDidUpdate() {
+    this.getIconSet(this.state.location);
+  }
   writeIconSet(dataFetcher, storageLocation) {
     //use condition to save icon settings to User/Account type respectively.
     const { name, green, orange, red, selected } = this.state;
@@ -49,17 +66,26 @@ export default class ManageIcons extends React.PureComponent {
     this.handleIconSetChange(null);
   }
 
-  deleteIconSet(selected, dataFetcher) {
-    deleteUserDocument(iconCollection, selected);
+  deleteIconSet(selected, dataFetcher, storageLocation) {
+
+    if (storageLocation.type === 'user') {
+      deleteUserDocument(iconCollection, selected);
+    } else {
+      deleteAccountDocument(
+        storageLocation.value,
+        iconCollection,
+        selected
+      );
+    }
     dataFetcher(['userIcons']);
     this.handleIconSetChange(null);
   }
 
   handleIconSetChange(value, userIcons, storageLocation) {
-    console.log(userIcons, "icons");
+    // console.log(storageLocation);
     this.setState({ selected: value });
     let iconsArr;
-    if (storageLocation.type == 'user') {
+    if (!storageLocation || storageLocation.type === 'user') {
       iconsArr = userIcons;
     }
     else {
@@ -87,17 +113,20 @@ export default class ManageIcons extends React.PureComponent {
     }
   }
 
-  async getIconSet(storageLocation, userIcons) {
+  async getIconSet(storageLocation) {
     if (storageLocation.type == 'user') {
-      userIcons = await getUserCollection('ObservabilityIcons');
+      let userIcons = await getUserCollection('ObservabilityIcons');
+      this.setState({ iconSet: userIcons });
+
     } else {
       let icons = await getAccountCollection(
         storageLocation.value,
         'ObservabilityIcons'
       );
       this.setState({ iconSet: icons });
-      console.log(this.state.iconSet);
+
     }
+    console.log(this.state.iconSet, "from click event");
   }
 
   render() {
@@ -106,9 +135,9 @@ export default class ManageIcons extends React.PureComponent {
       <DataConsumer>
         {({ userIcons, updateDataContextState, dataFetcher, storageLocation }) => {
           let filterUserIcons, options;
-          console.log(iconSet, "inside return", userIcons);
+          this.setState({ location: storageLocation });
           if (storageLocation.type === 'user') {
-            filterUserIcons = userIcons.filter((val, i) => userIcons.indexOf(val) === i);
+            filterUserIcons = iconSet.filter((val, i) => iconSet.indexOf(val) === i);
             options = filterUserIcons.map((set, i) =>
             ({
               key: i,
@@ -118,7 +147,7 @@ export default class ManageIcons extends React.PureComponent {
             }));
           }
           else {
-            console.log(iconSet, "icon set");
+
             filterUserIcons = iconSet;
             options = filterUserIcons.map((set, i) =>
             ({
@@ -128,9 +157,6 @@ export default class ManageIcons extends React.PureComponent {
               data: set.document
             }));
           }
-
-
-          console.log(options, userIcons, 'list');
           options.unshift({ key: 'new', text: 'New Icon Set', value: 'new' });
 
           return (
@@ -162,9 +188,9 @@ export default class ManageIcons extends React.PureComponent {
                       onChange={(e, d) =>
                         this.handleIconSetChange(d.value, userIcons, storageLocation)
                       }
-                      onClick={() => {
-                        this.getIconSet(storageLocation, userIcons);
-                      }}
+                    // onClick={() => {
+                    //   this.getIconSet(storageLocation, userIcons);
+                    // }}
                     />
                     <Form.Button
                       width="3"
@@ -195,7 +221,7 @@ export default class ManageIcons extends React.PureComponent {
                       negative
                       disabled={selected === '' || selected === 'new'}
                       content="Delete"
-                      onClick={() => this.deleteIconSet(selected, dataFetcher)}
+                      onClick={() => this.deleteIconSet(selected, dataFetcher, storageLocation)}
                     />
                   </Form.Group>
                 </Form>

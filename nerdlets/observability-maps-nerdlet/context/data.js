@@ -349,12 +349,14 @@ export class DataProvider extends Component {
                   );
 
                   if (storageLocation.type === 'user') {
+                    console.log("writing user map", mapConfig);
                     await writeUserDocument(
                       'ObservabilityMaps',
                       selectedMap.value,
                       mapConfig
                     );
                   } else if (storageLocation.type === 'account') {
+                    console.log("writing acc map", mapConfig);
                     await writeAccountDocument(
                       storageLocation.value,
                       'ObservabilityMaps',
@@ -386,16 +388,30 @@ export class DataProvider extends Component {
         maps = userMaps;
       } else if (storageLocation.type === 'account') {
         maps = accountMaps;
+        console.log(accountMaps, "acc map", maps);
       }
 
       let found = false;
-      for (let i = 0; i < maps.length; i++) {
-        if (maps[i].id === map) {
+
+      // for (let i = 0; i < maps.length; i++) {
+      //   if (maps[i].id === map) {
+      //     found = true;
+      //    let  config = JSON.parse(JSON.stringify(maps[i].document));
+      //     this.setState({ mapConfig:config });
+      //     console.log(this.state.mapConfig, "plucked map");
+      //     resolve(found);
+      //   }
+      // }
+      maps.forEach((item, i) => {
+        console.log(item, "map item");
+        if (item.id === map) {
           found = true;
-          const mapConfig = JSON.parse(JSON.stringify(maps[i].document));
-          this.setState({ mapConfig }, resolve(found));
+          let config = JSON.parse(JSON.stringify(item.document));
+          this.setState({ mapConfig: config });
+          console.log(this.state.mapConfig, "plucked map");
+          resolve(found);
         }
-      }
+      });
       if (!found) resolve(found);
     });
   };
@@ -416,12 +432,12 @@ export class DataProvider extends Component {
             break;
           case 'userIcons':
             content.push(action);
-            console.log(action, "icon action");
+
             if (storageLocation.type === 'user') {
-              console.log("user coll", iconCollection);
+
               dataPromises.push(getUserCollection(iconCollection));
             } else if (storageLocation.type === 'account') {
-              console.log("account coll", iconCollection);
+
               dataPromises.push(
                 getAccountCollection(storageLocation.value, iconCollection)
               );
@@ -446,7 +462,7 @@ export class DataProvider extends Component {
       });
 
       await Promise.all(dataPromises).then(async values => {
-        console.log(values,"value in data fetcher");
+        console.log(values, "value in data fetcher");
         const { storageLocation } = this.state;
         const data = {};
         data.availableMaps = [];
