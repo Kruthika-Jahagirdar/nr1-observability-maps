@@ -41,8 +41,8 @@ export default class CustomNode extends React.PureComponent {
         if (iconSet) {
           return (
             <Image
-              onClick={() =>{
-                               this.setState({
+              onClick={() => {
+                this.setState({
                   [`popup_${nodeId}`]: !this.state[`popup_${nodeId}`]
                 })
               }
@@ -91,9 +91,7 @@ export default class CustomNode extends React.PureComponent {
             className="popup-custom"
             trigger={
               <Icon
-                loading
                 size="big"
-                className={`spin-speed-${iconSpinSpeed}`}
                 color={colorTwo}
                 name={iconOuter}
               />
@@ -107,8 +105,6 @@ export default class CustomNode extends React.PureComponent {
           />
         ) : (
           <Icon
-            className={`spin-speed-${iconSpinSpeed}`}
-            loading
             size="big"
             color={colorTwo}
             name={iconOuter}

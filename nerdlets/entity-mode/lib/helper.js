@@ -51,15 +51,15 @@ export const setAlertDesign = (alertSeverity, entityType) => {
 
   switch (alertSeverity) {
     case 'NOT_CONFIGURED':
-      return { colorOne: 'grey', colorTwo: 'grey', iconOne: 'notch' };
+      return { colorOne: 'grey', colorTwo: 'grey', iconOne: 'outline' };
     case 'CRITICAL':
-      return { colorOne: 'red', colorTwo: 'red', iconOne: 'notch' };
+      return { colorOne: 'red', colorTwo: 'red', iconOne: 'outline' };
     case 'WARNING':
-      return { colorOne: 'orange', colorTwo: 'red', iconOne: 'notch' };
+      return { colorOne: 'orange', colorTwo: 'red', iconOne: 'outline' };
     case 'NOT_ALERTING':
       return { colorOne: 'green', colorTwo: 'green', iconOne: 'outline' };
     default:
-      return { colorOne: 'grey', colorTwo: 'grey', iconOne: 'notch' };
+      return { colorOne: 'grey', colorTwo: 'grey', iconOne: 'outline' };
   }
 };
 

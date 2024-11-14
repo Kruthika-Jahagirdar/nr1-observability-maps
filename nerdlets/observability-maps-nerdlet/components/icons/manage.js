@@ -135,6 +135,7 @@ export default class ManageIcons extends React.PureComponent {
       <DataConsumer>
         {({ userIcons, updateDataContextState, dataFetcher, storageLocation }) => {
           let filterUserIcons, options;
+          console.log(userIcons,"user icons in render");
           this.setState({ location: storageLocation });
           if (storageLocation.type === 'user') {
             filterUserIcons = iconSet.filter((val, i) => iconSet.indexOf(val) === i);

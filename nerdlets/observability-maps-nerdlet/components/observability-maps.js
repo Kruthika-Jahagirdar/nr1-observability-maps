@@ -48,7 +48,7 @@ export default class ObservabilityMaps extends React.Component {
         highlightFontSize: 14,
         labelPosition:'bottom',
         labelProperty: node => cleanNodeId(node.customLabel || node.id),
-        fontColor: 'white',
+        fontColor: '#000',
         viewGenerator: node => <NodeHandler node={node} nodeSize={nodeSize} />
       },
       link: {
@@ -74,8 +74,10 @@ export default class ObservabilityMaps extends React.Component {
           accountMaps,
           vizMapName,
           vizMapStorage,
-          vizAccountId
+          vizAccountId,
+          userIcons
         }) => {
+          console.log(userIcons,"main maps icons");
           const errors = [];
 
           d3MapConfig.link.type =

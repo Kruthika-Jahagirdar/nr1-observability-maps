@@ -393,25 +393,15 @@ export class DataProvider extends Component {
 
       let found = false;
 
-      // for (let i = 0; i < maps.length; i++) {
-      //   if (maps[i].id === map) {
-      //     found = true;
-      //    let  config = JSON.parse(JSON.stringify(maps[i].document));
-      //     this.setState({ mapConfig:config });
-      //     console.log(this.state.mapConfig, "plucked map");
-      //     resolve(found);
-      //   }
-      // }
-      maps.forEach((item, i) => {
-        console.log(item, "map item");
-        if (item.id === map) {
+      for (let i = 0; i < maps.length; i++) {
+        if (maps[i].id === map) {
           found = true;
-          let config = JSON.parse(JSON.stringify(item.document));
+          let config = JSON.parse(JSON.stringify(maps[i].document));
           this.setState({ mapConfig: config });
           console.log(this.state.mapConfig, "plucked map");
           resolve(found);
         }
-      });
+      }
       if (!found) resolve(found);
     });
   };
@@ -432,12 +422,9 @@ export class DataProvider extends Component {
             break;
           case 'userIcons':
             content.push(action);
-
             if (storageLocation.type === 'user') {
-
               dataPromises.push(getUserCollection(iconCollection));
             } else if (storageLocation.type === 'account') {
-
               dataPromises.push(
                 getAccountCollection(storageLocation.value, iconCollection)
               );
@@ -490,8 +477,8 @@ export class DataProvider extends Component {
                 type: 'account',
                 storageLocation
               }));
-              console.log(data, "data from promise");
               data.userIcons = [...data.userIcons, ...data[content[i]]];
+              console.log(data, data.userIcons, "user icons from promise");
               break;
             case 'userConfig':
               data.userConfig = value || null;

@@ -160,12 +160,12 @@ export default class Map extends React.PureComponent {
       document.getElementsByTagName('marker')[i].setAttribute('refX', '25');
       document
         .getElementsByTagName('marker')
-        [i].setAttribute('markerWidth', '2');
+      [i].setAttribute('markerWidth', '2');
       document
         .getElementsByTagName('marker')
-        [i].setAttribute('markerHeight', '2');
+      [i].setAttribute('markerHeight', '2');
     }
-console.log(d3MapConfig,"map config");
+    console.log(d3MapConfig, "map config");
     return (
       <DataConsumer>
         {({
@@ -176,14 +176,16 @@ console.log(d3MapConfig,"map config");
           showContextMenu,
           hasError,
           err,
-          errInfo
+          errInfo,
+          userIcons
         }) => {
           const contextOptions = buildContextOptions(
             mapData,
             rightClickType,
             rightClickedNodeId
           );
-
+          console.log(mapData, "map data in map js");
+          console.log(userIcons,"map js render")
           return (
             <>
               {' '}
