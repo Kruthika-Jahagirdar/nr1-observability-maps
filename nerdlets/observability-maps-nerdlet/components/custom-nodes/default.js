@@ -21,11 +21,14 @@ import HoverContent from './hover-content';
 export default class CustomNode extends React.PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      node_id: ''
+    };
     this.renderIcon = this.renderIcon.bind(this);
   }
 
   renderIcon(userIcons, nodeData, nodeId, isOpen, icon, colorOne) {
+    
     if (nodeData.iconSet) {
       const iconSet = userIcons.filter(set => set.id === nodeData.iconSet)[0];
       if (iconSet && iconSet.document) {
@@ -69,6 +72,8 @@ export default class CustomNode extends React.PureComponent {
     );
   }
 
+
+
   renderIconGroup = (
     userIcons,
     data,
@@ -83,7 +88,7 @@ export default class CustomNode extends React.PureComponent {
   ) => {
     const isOpen = this.state[`popup_${nodeId}`] || false;
     const iconOuter = `circle ${iconOne}`;
-
+    
     return (
       <Icon.Group size="big">
         {metrics && metrics.length > 0 ? (
@@ -112,7 +117,7 @@ export default class CustomNode extends React.PureComponent {
         )}
 
         <Popup
-          // className="popup-custom"
+          className="popup-custom"
           trigger={this.renderIcon(
             userIcons,
             data,
@@ -126,7 +131,7 @@ export default class CustomNode extends React.PureComponent {
           inverted
           open={this.state[`popup_${nodeId}`] === true && closeCharts === false}
           content={<MainChart mainChart={data.mainChart} />}
-          position="bottom center"
+          position="right center"
         />
       </Icon.Group>
     );
@@ -134,7 +139,7 @@ export default class CustomNode extends React.PureComponent {
 
   render() {
     const { node, nodeSize } = this.props;
-
+    this.setState({ node_id: node.id })
     return (
       <DataConsumer>
         {({ userIcons, mapData, closeCharts, mapConfig }) => {

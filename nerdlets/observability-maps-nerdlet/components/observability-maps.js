@@ -43,10 +43,10 @@ export default class ObservabilityMaps extends React.Component {
         color: 'lightgreen',
         size: nodeSize,
         highlightStrokeColor: 'blue',
-        fontSize: 16,
+        fontSize: 18,
         fontWeight:'bold',
-        highlightFontSize: 14,
-        labelPosition:'bottom',
+        highlightFontSize: 16,
+        labelPosition:'right',
         labelProperty: node => cleanNodeId(node.customLabel || node.id),
         fontColor: '#000',
         viewGenerator: node => <NodeHandler node={node} nodeSize={nodeSize} />

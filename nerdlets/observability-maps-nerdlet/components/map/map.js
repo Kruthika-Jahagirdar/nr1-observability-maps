@@ -3,9 +3,12 @@ no-console: 0,
 */
 import React from 'react';
 import { Graph } from 'react-d3-graph';
-import { Menu, Header, Divider, Button } from 'semantic-ui-react';
+import { Menu, Header, Divider, Button, GridRow, GridColumn, Grid } from 'semantic-ui-react';
 import { DataConsumer } from '../../context/data';
 import { buildContextOptions, rightClick } from './map-utils';
+
+import MainChart from '../custom-nodes/main-chart';
+import { setEntityDesign } from '../../lib/helper';
 // graph event callbacks
 // const onDoubleClickNode = nodeId => {
 //   console.log(`Double clicked node ${nodeId}`);
@@ -29,7 +32,7 @@ import { buildContextOptions, rightClick } from './map-utils';
 
 // do not allow negative coordinates
 const safeCoordinate = coordinate =>
-  coordinate <= 0 ? Math.floor(Math.random() * 100) + 1 : coordinate;
+  coordinate <= 0 ? Math.floor(Math.random() * 150) + 1 : coordinate;
 
 export default class Map extends React.PureComponent {
   constructor(props) {
@@ -39,12 +42,17 @@ export default class Map extends React.PureComponent {
       menuX: 0,
       menuY: 0,
       freezeNodes: false,
-      rightClickedNodeId: null
+      rightClickedNodeId: null,
+      isOpen: false,
+      nodeData: '',
+      chartData: '',
+      chartArray: []
     };
-
+    console.log(props, "props");
     this.onClickGraph = this.onClickGraph.bind(this);
     this.onNodePositionChange = this.onNodePositionChange.bind(this);
     this.onRightClickLink = this.onRightClickLink.bind(this);
+    this.slide = React.createRef();
   }
 
   // resetNodesPositions = () => this.refs.graph.resetNodesPositions();
@@ -106,8 +114,9 @@ export default class Map extends React.PureComponent {
   };
 
   onClickNode = (nodeId, x, y, updateDataContextState) => {
-    console.log(`onClickNode ${nodeId} ${x} ${y}`);
     updateDataContextState({ showContextMenu: false });
+    console.log(`onClickNode ${nodeId} ${x} ${y}`);
+
   };
 
   onRightClickLink = (
@@ -133,6 +142,40 @@ export default class Map extends React.PureComponent {
     }
   };
 
+  componentDidMount() {
+    //  this.showSlides();
+    setTimeout(() => {
+      this.changeNodeStyle();
+      // console.log(document.getElementById('graphid-graph-container-zoomable'), "graph container");
+      // document.getElementById('graphid-graph-container-zoomable').setAttribute('transform', 'translate(180, 30.99999999999997) scale(0.6) !important');
+      // console.log(document.getElementById('graphid-graph-container-zoomable').getAttribute('transform'), "graph container after update");
+    }, 5000);
+  }
+  changeNodeStyle() {
+    //change y position of svg text for nodes
+    console.log(document.getElementsByClassName('node')[0], "svg node text inside render");
+    if (document.getElementsByClassName('node')) {
+      // document.getElementsByClassName('node')[0].children[1].setAttribute('dy','35')
+      for (let i = 0; i < document.getElementsByClassName('node').length; i++) {
+        document.getElementsByClassName('node')[i].children[1].setAttribute('dx', '40');
+      }
+    }
+
+    console.log(document.getElementById('Custom Order [CUSTOM_NODE]'), "node by id")
+  }
+  showSlides() {
+    console.log(this.slide, "map data", this.slide.current)
+    let charts = [];
+    if (this.slide.value) {
+      for (let key in this.slide.value) {
+        if (this.slide.value[key].mainChart) {
+          charts.push(this.slide.value[key].mainChart);
+        }
+      }
+      // this.setState({ chartArray: charts });
+      console.log(charts, 'chart data');
+    }
+  }
   render() {
     const { d3MapConfig } = this.props;
     const {
@@ -166,6 +209,23 @@ export default class Map extends React.PureComponent {
       [i].setAttribute('markerHeight', '2');
     }
     console.log(d3MapConfig, "map config");
+
+
+    //code for slide show
+    // console.log(document.getElementsByClassName('slides'), "slides");
+    // let slideIndex = 0;
+    // let i;
+    // let slides = document.getElementsByClassName("slides");
+    // if (slides) {
+    //   for (i = 0; i < slides.length; i++) {
+    //     slides[i].style.display = "none";
+    //   }
+    //   slideIndex++;
+    //   if (slideIndex > slides.length) { slideIndex = 1 }
+
+    //   slides[slideIndex - 1].style.display = "block";
+    // }
+
     return (
       <DataConsumer>
         {({
@@ -184,8 +244,14 @@ export default class Map extends React.PureComponent {
             rightClickType,
             rightClickedNodeId
           );
-          console.log(mapData, "map data in map js");
-          console.log(userIcons,"map js render")
+          const nodes = mapData.nodeData;
+
+          this.slide.current = nodes;
+
+          //change y position of svg text for nodes
+
+
+
           return (
             <>
               {' '}
@@ -310,14 +376,14 @@ export default class Map extends React.PureComponent {
                     readOnly
                   />
                 </div>
-              ) : (
+              ) : (<>
                 <Graph
                   id="graphid" // id is mandatory, if no id is defined rd3g will throw an error
                   // ref="graph"
                   data={data}
                   config={d3MapConfig}
                   onClickNode={(n, x, y) =>
-                    this.onClickNode(n, x, y, updateDataContextState)
+                    this.onClickNode(n, x, y, mapData)
                   }
                   onRightClickNode={(e, n) =>
                     this.onRightClickNode(
@@ -352,11 +418,16 @@ export default class Map extends React.PureComponent {
                     )
                   }
                 />
+
+              </>
               )}
+
+
             </>
+
           );
         }}
-      </DataConsumer>
+      </DataConsumer >
     );
   }
 }
