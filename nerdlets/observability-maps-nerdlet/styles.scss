@@ -566,31 +566,80 @@ i {
   -webkit-animation: icon-loading 5s linear infinite !important;
 }
 
+.floating-button {
+  position: absolute;
+  bottom: 5vw;
+  left: 4vw;
+}
+
 .floating-panel {
   position: absolute;
-  top: 10vw;
-  right: 12vw;
+  bottom: 12vw;
+  left: 4vw;
 }
 
-.slides {
-  display: none;
+@mixin white-gradient {
+  background: linear-gradient(to right, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0) 100%);
 }
 
-.fade {
-  animation-name: fade;
-  animation-duration: 1.5s;
-}
+$animationSpeed: 20s;
 
-@keyframes fade {
-  from {
-    opacity: .4
+// Animation
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
   }
 
-  to {
-    opacity: 1
+  100% {
+    transform: translateX(calc(-150px * 2))
   }
 }
-.node > text{
+
+
+// Styling
+.slider {
+  background: white;
+  box-shadow: 0 10px 20px -5px rgba(0, 0, 0, .125);
+  height: 200px;
+  margin: auto;
+  overflow: hidden;
+  position: relative;
+  width: 320px;
+
+  &::before,
+  &::after {
+    content: "";
+    height: 200px;
+    position: absolute;
+    width: 200px;
+    z-index: 2;
+  }
+
+  &::after {
+    right: 0;
+    top: 0;
+    transform: rotateZ(180deg);
+  }
+
+  &::before {
+    left: 0;
+    top: 0;
+  }
+
+  .slide-track {
+    animation: scroll $animationSpeed linear infinite;
+    display: flex;
+    width: 320px;
+  }
+
+  .slide {
+    height: 200px;
+    width: 250px;
+    margin: 10px;
+  }
+}
+
+.node>text {
   font-family: "HEINEKEN Core";
   text-align: justify;
   word-break: break-all;

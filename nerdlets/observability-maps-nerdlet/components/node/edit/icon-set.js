@@ -29,8 +29,7 @@ export default class IconSet extends React.PureComponent {
             text: 'Default',
             value: 'default'
           });
-          const set = dataFetcher(['userIcons']);
-          console.log(set, "icon set from data fetcher");
+        
           const tempState = {
             iconSet: ''
           };

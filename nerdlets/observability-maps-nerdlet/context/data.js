@@ -422,6 +422,7 @@ export class DataProvider extends Component {
             break;
           case 'userIcons':
             content.push(action);
+            console.log(storageLocation,"location in data fetcher")
             if (storageLocation.type === 'user') {
               dataPromises.push(getUserCollection(iconCollection));
             } else if (storageLocation.type === 'account') {

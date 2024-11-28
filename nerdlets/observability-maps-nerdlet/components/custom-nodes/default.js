@@ -39,9 +39,11 @@ export default class CustomNode extends React.PureComponent {
 
         if (iconSet.document[colorOne]) {
           iconSrc = iconSet.document[colorOne];
+         
         }
 
         if (iconSet) {
+          
           return (
             <Image
               onClick={() => {

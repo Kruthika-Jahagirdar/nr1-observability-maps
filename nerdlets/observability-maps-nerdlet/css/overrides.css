@@ -42,5 +42,6 @@ i.icon.loading {
   font-size: 1.3em !important;
 } */
 #graphid-graph-container-zoomable {
-  transform: translate(180, 30.99999999999997) scale(0.6) !important;
+  transform: translate(17vw, 7vw) scale(0.5) !important;
+  width: 100%;
 }

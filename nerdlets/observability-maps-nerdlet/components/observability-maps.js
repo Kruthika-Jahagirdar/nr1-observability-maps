@@ -19,24 +19,43 @@ export default class ObservabilityMaps extends React.Component {
       sidebarOpen: false
     };
   }
+  componentDidMount(){
+    // setTimeout(() => {
+    //   this.changeNodeStyle();
+      
+    // }, 5000);
+  }
 
+  changeNodeStyle() {
+    //change y position of svg text for nodes
+    console.log(document.getElementsByClassName('node')[0], "svg node text inside render");
+    if (document.getElementsByClassName('node')) {
+      // document.getElementsByClassName('node')[0].children[1].setAttribute('dy','35')
+      for (let i = 0; i < document.getElementsByClassName('node').length; i++) {
+        document.getElementsByClassName('node')[i].children[1].setAttribute('dx', '40');
+      }
+    }
+
+    console.log(document.getElementById('Custom Order [CUSTOM_NODE]'), "node by id")
+  }
   render() {
     const { sidebarOpen } = this.state;
     const { isWidget, vizConfig } = this.props;
     const graphWidth = sidebarOpen
-      ? (this.props.width / 4) * 6
+      ? (this.props.width / 3) * 6
       : this.props.width;
-    const nodeSize = 800; // increasing this will not adjust the icon sizing, it will increase the svg area
+    // const graphWidth='100vw';
+    const nodeSize = 600; // increasing this will not adjust the icon sizing, it will increase the svg area
 
     // the graph configuration, you only need to pass down properties
     // that you want to override, otherwise default ones will be used
-    console.log(this.props,"props");
+    console.log(this.props.width,"props");
     const d3MapConfig = {
-      initialZoom: vizConfig?.initialZoom || 0.6,
+      initialZoom: vizConfig?.initialZoom || 0.5,
       staticGraph: false,
       staticGraphWithDragAndDrop: true,
       d3: {
-        linkLength: 200
+        linkLength: 400
       },
       nodeHighlightBehavior: false, // if this is set to true reset positions doesn't work
       node: {
@@ -59,13 +78,15 @@ export default class ObservabilityMaps extends React.Component {
         fontColor: '#21ba45',
         fontSize: 11,
         fontWeight: 'bold',
-        markerHeight:2
+        markerHeight:2,
+        color:'#205527'
       },
       directed: true,
       height: this.props.height - 60,
       width: graphWidth
     };
 
+   
     return (
       <DataConsumer>
         {({
@@ -78,6 +99,7 @@ export default class ObservabilityMaps extends React.Component {
           userIcons
         }) => {
           console.log(userIcons,"main maps icons");
+          console.log(accountMaps,"acc maps");
           const errors = [];
 
           d3MapConfig.link.type =
@@ -132,7 +154,7 @@ export default class ObservabilityMaps extends React.Component {
           }
 
           return (
-            <div style={{ overflowY: 'hidden', overflowX: 'hidden' }}>
+            <div style={{ overflowY: 'hidden', overflowX: 'hidden', height:'100%' }}>
               {errors.length > 0 &&
                 EmptyState(
                   errors,
