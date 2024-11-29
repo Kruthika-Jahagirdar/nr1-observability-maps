@@ -82,7 +82,8 @@ export default class ObservabilityMaps extends React.Component {
         color:'#205527'
       },
       directed: true,
-      height: this.props.height - 60,
+     // height: this.props.height - 60,
+     height:'90vh',
       width: graphWidth
     };
 

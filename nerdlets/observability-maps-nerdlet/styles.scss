@@ -574,8 +574,8 @@ i {
 
 .floating-panel {
   position: absolute;
-  bottom: 12vw;
-  left: 4vw;
+  top: 9vw;
+  left: 3vw;
 }
 
 @mixin white-gradient {
@@ -644,5 +644,5 @@ $animationSpeed: 20s;
   text-align: justify;
   word-break: break-all;
   fill: #205527;
-  font-size: 2.3vw;
+  font-size: 2.1vw;
 }

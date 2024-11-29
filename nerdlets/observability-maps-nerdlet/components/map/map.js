@@ -3,7 +3,15 @@ no-console: 0,
 */
 import React from 'react';
 import { Graph } from 'react-d3-graph';
-import { Menu, Header, Divider, Button, GridRow, GridColumn, Grid } from 'semantic-ui-react';
+import {
+  Menu, Header, Divider, Button, TableRow,
+  TableHeaderCell,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Icon,
+  Table,
+} from 'semantic-ui-react';
 import { DataConsumer } from '../../context/data';
 import { buildContextOptions, rightClick } from './map-utils';
 
@@ -47,7 +55,8 @@ export default class Map extends React.PureComponent {
       nodeData: '',
       chartData: '',
       chartArray: [],
-      isChart: false
+      isChart: false,
+      isTable: false
     };
     console.log(props, "props");
     this.onClickGraph = this.onClickGraph.bind(this);
@@ -147,7 +156,7 @@ export default class Map extends React.PureComponent {
 
     setTimeout(() => {
       this.changeNodeStyle();
-
+      this.setState({ isTable: true });
     }, 3000);
   }
   changeNodeStyle() {
@@ -198,7 +207,8 @@ export default class Map extends React.PureComponent {
       rightClickedNodeId,
       rightClickType,
       chartArray,
-      isChart
+      isChart,
+      isTable
     } = this.state;
 
     if (freezeNodes) {
@@ -415,12 +425,58 @@ export default class Map extends React.PureComponent {
                     )
                   }
                 />
-
               </>
               )
               }
+              {isTable ? (<>
+                <div className="floating-panel">
+                  <Table celled color='transparent' key='transparent' singleLine>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHeaderCell colSpan='3'>MtC Metrics (last hour)</TableHeaderCell>
+                      </TableRow>
+                    </TableHeader>
 
+                    <TableBody>
+                      <TableRow>
+                        <TableCell collapsing>
+                          # Orders
+                        </TableCell>
+                        <TableCell>354</TableCell>
 
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          # Sales Orders
+                        </TableCell>
+                        <TableCell>234</TableCell>
+
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          # Deliveries
+                        </TableCell>
+                        <TableCell>210</TableCell>
+
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                         # Goods Issues
+                        </TableCell>
+                        <TableCell>189</TableCell>
+
+                      </TableRow>
+                      <TableRow>
+                        <TableCell>
+                          # Invoices
+                        </TableCell>
+                        <TableCell>200</TableCell>
+
+                      </TableRow>
+                    </TableBody>
+                  </Table>
+                </div>
+              </>) : (<></>)}
             </>
 
           );

@@ -1,0 +1,8 @@
+@font-face {
+    font-family: 'HEINEKEN Core';
+    src: url('../fonts/HEINEKEN\ Core.otf') format("opentype");
+    font-weight: normal;
+      font-style: normal;
+    /* other formats include: 'woff2', 'truetype, 'opentype',
+                              'embedded-opentype', and 'svg' */
+  }
