@@ -156,7 +156,7 @@ export default class Map extends React.PureComponent {
 
     setTimeout(() => {
       this.changeNodeStyle();
-      this.setState({ isTable: true });
+     // this.setState({ isTable: true });
     }, 3000);
   }
   changeNodeStyle() {
