@@ -1,7 +1,15 @@
 @import url('//cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css');
 @import '/css/toastify.css';
 @import '/css/overrides.css';
-@import '/fonts.css';
+
+// @font-face {
+//   font-family: 'HEINEKEN Core';
+//   src: url('../fonts/HEINEKEN\ Core-Bold.otf') format("opentype");
+//   font-weight: normal;
+//     font-style: normal;
+//   /* other formats include: 'woff2', 'truetype, 'opentype',
+//                             'embedded-opentype', and 'svg' */
+// }
 
 i {
   margin-bottom: 5px !important;
@@ -641,7 +649,6 @@ $animationSpeed: 20s;
 }
 
 .node>text {
-  font-family: "HEINEKEN Core";
   text-align: justify;
   word-break: break-all;
   fill: #205527;

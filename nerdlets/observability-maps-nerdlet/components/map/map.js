@@ -156,7 +156,7 @@ export default class Map extends React.PureComponent {
 
     setTimeout(() => {
       this.changeNodeStyle();
-     // this.setState({ isTable: true });
+      this.setState({ isTable: true });
     }, 3000);
   }
   changeNodeStyle() {
@@ -433,44 +433,37 @@ export default class Map extends React.PureComponent {
                   <Table celled color='transparent' key='transparent' singleLine>
                     <TableHeader>
                       <TableRow>
-                        <TableHeaderCell colSpan='3'>MtC Metrics (last hour)</TableHeaderCell>
+                        <TableHeaderCell colSpan='3'>MtC Metrics (last 24h)</TableHeaderCell>
                       </TableRow>
                     </TableHeader>
 
                     <TableBody>
                       <TableRow>
-                        <TableCell collapsing>
-                          # Orders
-                        </TableCell>
-                        <TableCell>354</TableCell>
-
-                      </TableRow>
-                      <TableRow>
                         <TableCell>
                           # Sales Orders
                         </TableCell>
-                        <TableCell>234</TableCell>
+                        <TableCell><b>400</b></TableCell>
 
                       </TableRow>
                       <TableRow>
                         <TableCell>
                           # Deliveries
                         </TableCell>
-                        <TableCell>210</TableCell>
+                        <TableCell><b>400</b></TableCell>
 
                       </TableRow>
                       <TableRow>
                         <TableCell>
-                         # Goods Issues
+                          # Goods Issues
                         </TableCell>
-                        <TableCell>189</TableCell>
+                        <TableCell><b>1000</b></TableCell>
 
                       </TableRow>
                       <TableRow>
                         <TableCell>
                           # Invoices
                         </TableCell>
-                        <TableCell>200</TableCell>
+                        <TableCell><b>300</b></TableCell>
 
                       </TableRow>
                     </TableBody>
