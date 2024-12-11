@@ -4,18 +4,12 @@ no-console: 0,
 import React from 'react';
 import { Graph } from 'react-d3-graph';
 import {
-  Menu, Header, Divider, Button, TableRow,
-  TableHeaderCell,
-  TableHeader,
-  TableCell,
-  TableBody,
-  Icon,
-  Table,
+  Menu, Header, Divider, Button
 } from 'semantic-ui-react';
 import { DataConsumer } from '../../context/data';
 import { buildContextOptions, rightClick } from './map-utils';
 
-import MainChart from '../custom-nodes/main-chart';
+
 
 // graph event callbacks
 // const onDoubleClickNode = nodeId => {
@@ -56,7 +50,7 @@ export default class Map extends React.PureComponent {
       chartData: '',
       chartArray: [],
       isChart: false,
-      isTable: false
+
     };
     console.log(props, "props");
     this.onClickGraph = this.onClickGraph.bind(this);
@@ -156,7 +150,7 @@ export default class Map extends React.PureComponent {
 
     setTimeout(() => {
       this.changeNodeStyle();
-      this.setState({ isTable: true });
+
     }, 3000);
   }
   changeNodeStyle() {
@@ -205,10 +199,7 @@ export default class Map extends React.PureComponent {
       menuY,
       freezeNodes,
       rightClickedNodeId,
-      rightClickType,
-      chartArray,
-      isChart,
-      isTable
+      rightClickType
     } = this.state;
 
     if (freezeNodes) {
@@ -428,48 +419,7 @@ export default class Map extends React.PureComponent {
               </>
               )
               }
-              {isTable ? (<>
-                <div className="floating-panel">
-                  <Table celled color='transparent' key='transparent' singleLine>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHeaderCell colSpan='3'>MtC Metrics (last 24h)</TableHeaderCell>
-                      </TableRow>
-                    </TableHeader>
 
-                    <TableBody>
-                      <TableRow>
-                        <TableCell>
-                          # Sales Orders
-                        </TableCell>
-                        <TableCell><b>400</b></TableCell>
-
-                      </TableRow>
-                      <TableRow>
-                        <TableCell>
-                          # Deliveries
-                        </TableCell>
-                        <TableCell><b>400</b></TableCell>
-
-                      </TableRow>
-                      <TableRow>
-                        <TableCell>
-                          # Goods Issues
-                        </TableCell>
-                        <TableCell><b>1000</b></TableCell>
-
-                      </TableRow>
-                      <TableRow>
-                        <TableCell>
-                          # Invoices
-                        </TableCell>
-                        <TableCell><b>300</b></TableCell>
-
-                      </TableRow>
-                    </TableBody>
-                  </Table>
-                </div>
-              </>) : (<></>)}
             </>
 
           );

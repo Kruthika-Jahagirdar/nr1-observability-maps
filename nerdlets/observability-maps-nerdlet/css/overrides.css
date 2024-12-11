@@ -43,15 +43,17 @@ i.icon.loading {
 
 .ui.table {
   background: transparent !important;
+  box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
 
 .ui.table thead th {
   background: transparent !important;
-  font-family: 'HEINEKEN Core';
   color: #205527;
-  font-size: 0.8vw;
+  font-size: 14px;
 }
-td:not(.u-unstyledTd), th:not(.u-unstyledTh){
+
+td:not(.u-unstyledTd),
+th:not(.u-unstyledTh) {
   background: transparent;
 
 }

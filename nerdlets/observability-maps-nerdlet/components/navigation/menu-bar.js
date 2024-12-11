@@ -2,7 +2,14 @@
 no-console: 0
 */
 import React from 'react';
-import { Button } from 'semantic-ui-react';
+import {
+  Button, TableRow,
+  TableHeaderCell,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Table
+} from 'semantic-ui-react';
 import CreateMap from '../map/create';
 import DeleteMap from '../map/delete';
 import ExportMap from '../map/export';
@@ -18,6 +25,55 @@ import UserSettings from '../user/settings';
 import { DataConsumer } from '../../context/data';
 
 export default class MenuBar extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      isTable: false,
+      tableData: [{
+        "name": "MtC Metrics (last 24h)",
+        "value": "Market-to-Cash",
+        "data": [
+          {
+            "title": "# Sales Order",
+            "value": 400
+          },
+          {
+            "title": "# Deliveries",
+            "value": 400
+          }, {
+            "title": "# Goods Issues",
+            "value": 1000
+          },
+          {
+            "title": "# Invoices",
+            "value": 300
+          }
+        ]
+      },
+      {
+        "name": "StP Metrics (last 24h)",
+        "value": "Source-to-Pay---Direct",
+        "data": [
+          {
+            "title": "# Sales Order",
+            "value": 400
+          },
+          {
+            "title": "# Deliveries",
+            "value": 400
+          }, {
+            "title": "# Goods Issues",
+            "value": 1000
+          },
+          {
+            "title": "# Invoices",
+            "value": 300
+          }
+        ]
+      }],
+      selectedTable: ''
+    };
+  }
   handleMapMenuChange = (
     selectedMap,
     availableMaps,
@@ -33,10 +89,25 @@ export default class MenuBar extends React.PureComponent {
     } else {
       updateDataContextState({ selectedMap }, ['loadMap']);
       console.log(`Map selected:`, selectedMap);
+     
+        this.setState({ isTable: true });
+        console.log("show metrics", this.state.isTable);
+        const tblData = this.state.tableData.forEach((item, index) => {
+          if (item.value.includes(selectedMap.value)) {
+            this.setState({ selectedTable: item });
+            return console.log(item);
+          }
+        });
+
+      
     }
   };
 
+  componentDidMount() {
+    console.log("mounting component");
+  }
   render() {
+    const { isTable, selectedTable } = this.state;
     return (
       <DataConsumer>
         {({
@@ -179,11 +250,39 @@ export default class MenuBar extends React.PureComponent {
                 <UserSettings />
 
                 <RefreshSelector />
+                {isTable ? (<div className="floating-panel">
+                  <Table celled color='transparent' key='transparent' singleLine>
+                    <TableHeader>
+                      <TableRow>
+                        <TableHeaderCell colSpan='3'>{selectedTable.name}</TableHeaderCell>
+                      </TableRow>
+                    </TableHeader>
+
+                    <TableBody>
+                      {selectedTable.data.map((item) => {
+                        return (
+                          <TableRow>
+                            <TableCell>
+                              {item.title}
+                            </TableCell>
+                            <TableCell><b>{item.value}</b></TableCell>
+
+                          </TableRow>
+                        );
+                      }
+                      )}
+
+                    </TableBody>
+                  </Table>
+                </div>) : (<></>)}
               </div>
+
             </div>
           );
         }}
+
       </DataConsumer>
+
     );
   }
 }
