@@ -36,10 +36,90 @@ i.icon.loading {
 /* i.icon, i.icons {
   font-size: 1.3em !important;
 } */
-#graphid-graph-container-zoomable {
+/* make graph responsive */
+/* #graphid-graph-container-zoomable {
   transform: translate(17vw, 7vw) scale(0.5) !important;
   width: 100%;
+} */
+
+.link>text {
+  text-align: justify;
+  word-break: break-all;
+  fill: #205527;
+  font-size: 2.2vw;
 }
+@media only screen and (min-width:1340px) {
+  #graphid-graph-container-zoomable {
+    transform: translate(17vw, 7vw) scale(0.45) !important;
+    width: 100%;
+  }
+
+  .node>text {
+    text-align: justify;
+    word-break: break-all;
+    fill: #205527;
+    font-size: 2.2vw;
+  }
+}
+
+@media only screen and (min-width:1199px) and (max-width:1340px) {
+  #graphid-graph-container-zoomable {
+    transform: translate(17vw, 7vw) scale(0.4) !important;
+    width: 100%;
+  }
+  .node>text {
+    text-align: justify;
+    word-break: break-all;
+    fill: #205527;
+    font-size: 2.3vw;
+  }
+}
+
+@media only screen and (min-width:1620px) and (max-width:1838px){
+  #graphid-graph-container-zoomable {
+    transform: translate(17vw, 7vw) scale(0.55) !important;
+    width: 100%;
+  }
+  .node>text {
+    text-align: justify;
+    word-break: break-all;
+    fill: #205527;
+    font-size: 2vw;
+  }
+}
+
+@media only screen and (min-width:1519px) and (max-width:1620px) {
+  #graphid-graph-container-zoomable {
+    transform: translate(17vw, 7vw) scale(0.5) !important;
+    width: 100%;
+  }
+
+  .node>text {
+    text-align: justify;
+    word-break: break-all;
+    fill: #205527;
+    font-size: 2vw;
+  }
+}
+
+@media only screen and (min-width:1839px) and (max-width:2010px){
+  #graphid-graph-container-zoomable {
+    transform: translate(17vw, 7vw) scale(0.6) !important;
+    width: 100%;
+  }
+  .node>text {
+    text-align: justify;
+    word-break: break-all;
+    fill: #205527;
+    font-size: 1.8vw;
+  }
+}
+/* @media only screen and (min-width:2050px){
+  #graphid-graph-container-zoomable {
+    transform: translate(17vw, 9vw) scale(0.7) !important;
+    width: 100%;
+  }
+} */
 
 .ui.table {
   background: transparent !important;
@@ -49,7 +129,7 @@ i.icon.loading {
 .ui.table thead th {
   background: transparent !important;
   color: #205527;
-  font-size: 14px;
+  font-size: 1vw;
 }
 
 td:not(.u-unstyledTd),

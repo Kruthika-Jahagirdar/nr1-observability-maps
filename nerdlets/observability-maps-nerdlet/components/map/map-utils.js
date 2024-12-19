@@ -12,6 +12,7 @@ export const buildContextOptions = (
   rightClickedNodeId
 ) => {
   const contextOptions = [];
+
   if (mapData) {
     if (rightClickType === 'node' && mapData.nodeData[rightClickedNodeId]) {
       const ignoreEntityTypes = ['APM_EXTERNAL_SERVICE_ENTITY'];
@@ -256,5 +257,64 @@ export const rightClick = (
       updateDataContextState({ mapConfig }, ['saveMap']);
       break;
   }
+
   updateDataContextState({ showContextMenu: false });
+};
+
+export const tableMetrics = (selectedMap) => {
+  let tableData = [{
+    "name": "MtC Metrics (last 24h)",
+    "value": "Market-to-Cash",
+    "data": [
+      {
+        "title": "# Sales Order",
+        "value": 400
+      },
+      {
+        "title": "# Deliveries",
+        "value": 400
+      }, {
+        "title": "# Goods Issues",
+        "value": 1000
+      },
+      {
+        "title": "# Invoices",
+        "value": 300
+      }
+    ]
+  },
+  {
+    "name": "StP Metrics (last 24h)",
+    "value": "Source-to-Pay---Direct",
+    "data": [
+      {
+        "title": "# Sales Order",
+        "value": 400
+      },
+      {
+        "title": "# Deliveries",
+        "value": 400
+      }, {
+        "title": "# Goods Issues",
+        "value": 1000
+      },
+      {
+        "title": "# Invoices",
+        "value": 300
+      }
+    ]
+  }];
+  const map = selectedMap;
+  console.log(map, "sel map form utils");
+  let tblData='' ;
+  if (map) {
+    tableData.forEach((item, index) => {
+      if (item.value.includes(map.value)) {
+        //this.setState({ selectedTable: item });
+        tblData=item;
+      }
+    });
+  }
+  console.log(tblData);
+  return tblData;
 };

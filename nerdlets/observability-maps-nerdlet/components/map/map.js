@@ -4,10 +4,15 @@ no-console: 0,
 import React from 'react';
 import { Graph } from 'react-d3-graph';
 import {
-  Menu, Header, Divider, Button
+  Menu, Header, Divider, Button, TableRow,
+  TableHeaderCell,
+  TableHeader,
+  TableCell,
+  TableBody,
+  Table
 } from 'semantic-ui-react';
 import { DataConsumer } from '../../context/data';
-import { buildContextOptions, rightClick } from './map-utils';
+import { buildContextOptions, rightClick, tableMetrics } from './map-utils';
 
 
 
@@ -50,6 +55,8 @@ export default class Map extends React.PureComponent {
       chartData: '',
       chartArray: [],
       isChart: false,
+      isTable: false,
+      selectedTable: ''
 
     };
     console.log(props, "props");
@@ -151,6 +158,7 @@ export default class Map extends React.PureComponent {
     setTimeout(() => {
       this.changeNodeStyle();
 
+
     }, 3000);
   }
   changeNodeStyle() {
@@ -165,6 +173,9 @@ export default class Map extends React.PureComponent {
 
 
   }
+
+
+
   showSlides = (mapData) => {
     this.setState({ isChart: true });
     console.log(mapData, "map data",)
@@ -199,7 +210,7 @@ export default class Map extends React.PureComponent {
       menuY,
       freezeNodes,
       rightClickedNodeId,
-      rightClickType
+      rightClickType, isTable, selectedTable
     } = this.state;
 
     if (freezeNodes) {
@@ -239,15 +250,19 @@ export default class Map extends React.PureComponent {
           hasError,
           err,
           errInfo,
-          userIcons
+          userIcons,
+          selectedMap
         }) => {
           const contextOptions = buildContextOptions(
             mapData,
             rightClickType,
             rightClickedNodeId
           );
+        
 
-
+            const metrics = tableMetrics(selectedMap);
+            console.log(metrics, "sel map in map js");
+        
 
 
           return (
@@ -419,7 +434,31 @@ export default class Map extends React.PureComponent {
               </>
               )
               }
+             {selectedMap && metrics ? (<div className="floating-panel">
+                <Table celled color='transparent' key='transparent' singleLine>
+                  <TableHeader>
+                    <TableRow>
+                      <TableHeaderCell colSpan='3'>{metrics.name}</TableHeaderCell>
+                    </TableRow>
+                  </TableHeader>
 
+                  <TableBody>
+                    {metrics.data.map((item) => {
+                      return (
+                        <TableRow>
+                          <TableCell>
+                            {item.title}
+                          </TableCell>
+                          <TableCell><b>{item.value}</b></TableCell>
+
+                        </TableRow>
+                      );
+                    }
+                    )}
+
+                  </TableBody>
+                </Table>
+              </div>) : (<></>)} 
             </>
 
           );

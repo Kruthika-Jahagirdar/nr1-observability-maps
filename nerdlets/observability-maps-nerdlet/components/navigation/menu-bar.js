@@ -3,12 +3,7 @@ no-console: 0
 */
 import React from 'react';
 import {
-  Button, TableRow,
-  TableHeaderCell,
-  TableHeader,
-  TableCell,
-  TableBody,
-  Table
+  Button
 } from 'semantic-ui-react';
 import CreateMap from '../map/create';
 import DeleteMap from '../map/delete';
@@ -88,18 +83,7 @@ export default class MenuBar extends React.PureComponent {
       }
     } else {
       updateDataContextState({ selectedMap }, ['loadMap']);
-      console.log(`Map selected:`, selectedMap);
-     
-        this.setState({ isTable: true });
-        console.log("show metrics", this.state.isTable);
-        const tblData = this.state.tableData.forEach((item, index) => {
-          if (item.value.includes(selectedMap.value)) {
-            this.setState({ selectedTable: item });
-            return console.log(item);
-          }
-        });
-
-      
+           
     }
   };
 
@@ -107,7 +91,7 @@ export default class MenuBar extends React.PureComponent {
     console.log("mounting component");
   }
   render() {
-    const { isTable, selectedTable } = this.state;
+   
     return (
       <DataConsumer>
         {({
@@ -250,31 +234,7 @@ export default class MenuBar extends React.PureComponent {
                 <UserSettings />
 
                 <RefreshSelector />
-                {isTable ? (<div className="floating-panel">
-                  <Table celled color='transparent' key='transparent' singleLine>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHeaderCell colSpan='3'>{selectedTable.name}</TableHeaderCell>
-                      </TableRow>
-                    </TableHeader>
-
-                    <TableBody>
-                      {selectedTable.data.map((item) => {
-                        return (
-                          <TableRow>
-                            <TableCell>
-                              {item.title}
-                            </TableCell>
-                            <TableCell><b>{item.value}</b></TableCell>
-
-                          </TableRow>
-                        );
-                      }
-                      )}
-
-                    </TableBody>
-                  </Table>
-                </div>) : (<></>)}
+                
               </div>
 
             </div>

@@ -19,10 +19,10 @@ export default class ObservabilityMaps extends React.Component {
       sidebarOpen: false
     };
   }
-  componentDidMount(){
+  componentDidMount() {
     // setTimeout(() => {
     //   this.changeNodeStyle();
-      
+
     // }, 5000);
   }
 
@@ -49,9 +49,11 @@ export default class ObservabilityMaps extends React.Component {
 
     // the graph configuration, you only need to pass down properties
     // that you want to override, otherwise default ones will be used
-    console.log(this.props.width,"props");
+    console.log(this.props, "props");
     const d3MapConfig = {
       initialZoom: vizConfig?.initialZoom || 0.5,
+      minZoom:0.5,
+      maxZoom:2.5,
       staticGraph: false,
       staticGraphWithDragAndDrop: true,
       d3: {
@@ -63,9 +65,9 @@ export default class ObservabilityMaps extends React.Component {
         size: nodeSize,
         highlightStrokeColor: 'blue',
         fontSize: 18,
-        fontWeight:'bold',
+        fontWeight: 'bold',
         highlightFontSize: 16,
-        labelPosition:'right',
+        labelPosition: 'right',
         labelProperty: node => cleanNodeId(node.customLabel || node.id),
         fontColor: '#000',
         viewGenerator: node => <NodeHandler node={node} nodeSize={nodeSize} />
@@ -75,19 +77,20 @@ export default class ObservabilityMaps extends React.Component {
         type: 'CURVE_SMOOTH',
         renderLabel: true,
         labelProperty: link => <LinkHandler link={link} />,
-        fontColor: '#21ba45',
-        fontSize: 11,
+        fontColor: '#000',
+        fontSize: 24,
         fontWeight: 'bold',
-        markerHeight:2,
-        color:'#205527'
+        markerHeight: 2,
+        color: '#205527',
+        strokeWidth:2
       },
-      directed: true,
-     // height: this.props.height - 60,
-     height:'90vh',
+    //  directed: true,
+      // height: this.props.height - 60,
+      height: '90vh',
       width: graphWidth
     };
 
-   
+
     return (
       <DataConsumer>
         {({
@@ -99,8 +102,8 @@ export default class ObservabilityMaps extends React.Component {
           vizAccountId,
           userIcons
         }) => {
-          console.log(userIcons,"main maps icons");
-          console.log(accountMaps,"acc maps");
+          console.log(userIcons, "main maps icons");
+          console.log(accountMaps, "acc maps");
           const errors = [];
 
           d3MapConfig.link.type =
@@ -140,7 +143,7 @@ export default class ObservabilityMaps extends React.Component {
           }
 
           const mainGridStyle = {
-            height: this.props.height - 44,
+            height: '100%',
             backgroundColor: 'black',
             marginTop: '0px'
           };
@@ -155,7 +158,7 @@ export default class ObservabilityMaps extends React.Component {
           }
 
           return (
-            <div style={{ overflowY: 'hidden', overflowX: 'hidden', height:'100%' }}>
+            <div style={{ overflowY: 'hidden', overflowX: 'hidden', height: '100%' }}>
               {errors.length > 0 &&
                 EmptyState(
                   errors,
